@@ -1,5 +1,5 @@
 /*
- * FileName：MsgTextDao.java 
+ * FileName：MsgTextDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,28 +23,27 @@ import com.wxmp.wxcms.domain.MsgText;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface MsgTextDao {
 
-	public MsgText getById(String id);
+    MsgText getById(String id);
 
-	public List<MsgText> getMsgTextByPage(MsgText searchEntity);
+    List<MsgText> getMsgTextByPage(MsgText searchEntity);
 
-	public List<MsgText> getMsgTextList(MsgText searchEntity);
+    List<MsgText> getMsgTextList(MsgText searchEntity);
 
-	public void add(MsgText entity);
+    void add(MsgText entity);
 
-	public void update(MsgText entity);
+    void update(MsgText entity);
 
-	public void delete(MsgText entity);
+    void delete(MsgText entity);
 
-	public MsgText getRandomMsg(String inputCode);
-	
-	public MsgText getRandomMsg2();
+    MsgText getRandomMsg(String inputCode);
 
-	public MsgText getByBaseId(String baseid);
+    MsgText getRandomMsg2();
+
+    MsgText getByBaseId(String baseid);
 }

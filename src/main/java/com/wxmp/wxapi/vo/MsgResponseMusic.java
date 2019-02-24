@@ -1,5 +1,5 @@
 /*
- * FileName：MsgResponseMusic.java 
+ * FileName：MsgResponseMusic.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,19 +14,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxapi.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 公众号回复给用户的消息 - 音乐消息
- * 
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MsgResponseMusic extends MsgResponse {
 
-	private com.wxmp.wxapi.vo.Music Music;
+    private com.wxmp.wxapi.vo.Music Music;
 
 }

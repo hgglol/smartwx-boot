@@ -1,5 +1,5 @@
 /*
- * FileName：BaseCtrl.java 
+ * FileName：BaseCtrl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.core.common;
 
@@ -34,13 +34,13 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2017 -06-28 20:41:23
  */
 public class BaseCtrl {
-    
+
     @Resource
     protected HttpServletRequest request;
-    
+
     @Resource
     protected HttpServletResponse response;
-    
+
     /**
      * 初始化属性，在每个方法执行前执行该赋值方法
      *
@@ -55,7 +55,7 @@ public class BaseCtrl {
         this.response = response;
     }
 
-    public AjaxResult getResult(Page page, Object data){
+    public AjaxResult getResult(Page page, Object data) {
         AjaxResult result = new AjaxResult();
         Page newPage = new Page();
         newPage.setPage(page.getPage());
@@ -67,21 +67,4 @@ public class BaseCtrl {
         result.setSuccess(true);
         return result;
     }
-
-    protected static boolean validate(HttpServletRequest request, String validateCode) {
-        if(StringUtil.isBlank(validateCode)) {
-            return false;
-        } else {
-            String code = (String)request.getSession().getAttribute("adminVerifyCode");
-            return validateCode.toUpperCase().equals(code);
-        }
-    }
-
-//    /**
-//     * 获取用户
-//     * @return
-//     */
-//    public SysUser getUser() {
-//        return SessionUtil.getUser();
-//    }
 }

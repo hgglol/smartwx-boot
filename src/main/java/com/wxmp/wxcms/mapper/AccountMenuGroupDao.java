@@ -1,5 +1,5 @@
 /*
- * FileName：AccountMenuGroupDao.java 
+ * FileName：AccountMenuGroupDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,7 +23,6 @@ import com.wxmp.wxcms.domain.AccountMenuGroup;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
@@ -31,34 +30,33 @@ import java.util.List;
 
 public interface AccountMenuGroupDao {
 
-	public AccountMenuGroup getById(String id);
+    AccountMenuGroup getById(String id);
 
-	public List<AccountMenuGroup> list(AccountMenuGroup searchEntity);
+    List<AccountMenuGroup> list(AccountMenuGroup searchEntity);
 
-	public Integer getTotalItemsCount(AccountMenuGroup searchEntity);
+    List<AccountMenuGroup> getGroupListByPage(AccountMenuGroup searchEntity);
 
-	public List<AccountMenuGroup> getGroupListByPage(AccountMenuGroup searchEntity);
+    void add(AccountMenuGroup entity);
 
-	public void add(AccountMenuGroup entity);
+    void update(AccountMenuGroup entity);
 
-	public void update(AccountMenuGroup entity);
-	
-	public void updateMenuGroupDisable();
-	
-	public void updateMenuGroupEnable(String gid);
-	
-	public void deleteAllMenu(AccountMenuGroup entity);
-	
-	public void delete(AccountMenuGroup entity);
+    void updateMenuGroupDisable();
 
-	/**
-	 * 删除菜单组
-	 * @param id
-	 */
-	public void deleteGroupById(long id);
-	/**
-	 * 删除菜单组下的菜单
-	 * @param id
-	 */
-	public void deleteMenuByGId(long id);
+    void deleteAllMenu(AccountMenuGroup entity);
+
+    void delete(AccountMenuGroup entity);
+
+    /**
+     * 删除菜单组
+     *
+     * @param id
+     */
+    void deleteGroupById(long id);
+
+    /**
+     * 删除菜单组下的菜单
+     *
+     * @param id
+     */
+    void deleteMenuByGId(long id);
 }

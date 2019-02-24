@@ -270,18 +270,6 @@ public class MyServiceImpl implements MyService {
         return fans;
     }
 
-    // 根据openid 获取粉丝，如果没有，同步粉丝
-    public AccountFans getFansByOpenId(String openId, MpAccount mpAccount) throws WxErrorException {
-        AccountFans fans = fansDao.getByOpenId(openId);
-        if (fans == null) {// 如果没有，添加
-            fans = WxApiClient.syncAccountFans(openId, mpAccount);
-            if (null != fans) {
-                fansDao.add(fans);
-            }
-        }
-        return fans;
-    }
-
     //同步粉丝列表
     public boolean syncUserTagList(MpAccount mpAccount) throws WxErrorException {
         String url=null;

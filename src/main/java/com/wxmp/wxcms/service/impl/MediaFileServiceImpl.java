@@ -61,11 +61,6 @@ public class MediaFileServiceImpl implements MediaFileService {
 	}
 
 	@Override
-	public MediaFiles getFileByMediaId(String mediaId) {
-		return mediaFilesDao.getFileByMediaId(mediaId);
-	}
-
-	@Override
 	public List<MediaFiles> getMediaListByPage(MediaFiles entity) {
 		return mediaFilesDao.getMediaListByPage(entity);
 	}

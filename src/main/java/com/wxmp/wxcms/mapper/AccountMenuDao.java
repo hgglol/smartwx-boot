@@ -1,5 +1,5 @@
 /*
- * FileName：AccountMenuDao.java 
+ * FileName：AccountMenuDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,27 +23,25 @@ import com.wxmp.wxcms.domain.AccountMenu;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface AccountMenuDao {
 
-	public AccountMenu getById(String id);
+    AccountMenu getById(String id);
 
-	public List<AccountMenu> listForPage(AccountMenu searchEntity);
+    List<AccountMenu> listForPage(AccountMenu searchEntity);
 
-	public List<AccountMenu> listParentMenu(AccountMenu entity);
-	
-	public List<AccountMenu> listWxMenus(AccountMenu entity);
-	
-	public void add(AccountMenu entity);
+    List<AccountMenu> listParentMenu(AccountMenu entity);
 
-	public void update(AccountMenu entity);
+    List<AccountMenu> listWxMenus(AccountMenu entity);
 
-	public void delete(AccountMenu entity);
+    void add(AccountMenu entity);
 
+    void update(AccountMenu entity);
+
+    void delete(AccountMenu entity);
 
 
 }

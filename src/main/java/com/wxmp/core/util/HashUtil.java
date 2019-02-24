@@ -148,7 +148,7 @@ public class HashUtil {
 			mac.init(secretKey);
 			return mac.doFinal(input);
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 
@@ -175,7 +175,7 @@ public class HashUtil {
 			SecretKey secretKey = keyGenerator.generateKey();
 			return secretKey.getEncoded();
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 
@@ -238,7 +238,7 @@ public class HashUtil {
 			cipher.init(mode, secretKey);
 			return cipher.doFinal(input);
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 
@@ -258,7 +258,7 @@ public class HashUtil {
 			cipher.init(mode, secretKey, ivSpec);
 			return cipher.doFinal(input);
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 
@@ -279,7 +279,7 @@ public class HashUtil {
 			SecretKey secretKey = keyGenerator.generateKey();
 			return secretKey.getEncoded();
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 
@@ -344,7 +344,7 @@ public class HashUtil {
 			}
 			return result;
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 
@@ -382,7 +382,7 @@ public class HashUtil {
 
 			return messageDigest.digest();
 		} catch (GeneralSecurityException e) {
-			throw ExcptUtil.unchecked(e);
+			throw ExceptUtil.unchecked(e);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * FileName：MsgArticleDao.java 
+ * FileName：MsgArticleDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,24 +23,23 @@ import com.wxmp.wxcms.domain.MsgArticle;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface MsgArticleDao {
 
-	List<MsgArticle> getByNewsId(int id);
-	
-	MsgArticle getById(int id);
-	
-	void add(MsgArticle article);
-	
-	void insertByBatch(List<MsgArticle> articles);
-	
-	void update(MsgArticle article);
-	
-	void delete(int id);
-	
-	void deleteByBatch(int id);
+    List<MsgArticle> getByNewsId(int id);
+
+    MsgArticle getById(int id);
+
+    void add(MsgArticle article);
+
+    void insertByBatch(List<MsgArticle> articles);
+
+    void update(MsgArticle article);
+
+    void delete(int id);
+
+    void deleteByBatch(int id);
 }

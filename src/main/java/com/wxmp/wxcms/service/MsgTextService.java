@@ -1,5 +1,5 @@
 /*
- * FileName：MsgTextService.java 
+ * FileName：MsgTextService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -23,26 +23,24 @@ import com.wxmp.wxcms.domain.MsgText;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface MsgTextService {
 
-	public MsgText getById(String id);
+    MsgText getById(String id);
 
-	public List<MsgText> getMsgTextByPage(MsgText searchEntity);
+    List<MsgText> getMsgTextByPage(MsgText searchEntity);
 
-	public void add(MsgText entity);
+    void add(MsgText entity);
 
-	public void update(MsgText entity);
+    void update(MsgText entity);
 
-	public void delete(String baseIds);
-	
-	//根据用户发送的文本消息，随机获取一条文本消息
-	public MsgText getRandomMsg(String inputcode);
-	public MsgText getRandomMsg2();
-	
-	public MsgText getByBaseId(String baseid);
+    void delete(String baseIds);
+
+    //根据用户发送的文本消息，随机获取一条文本消息
+    MsgText getRandomMsg(String inputcode);
+
+    MsgText getByBaseId(String baseid);
 }

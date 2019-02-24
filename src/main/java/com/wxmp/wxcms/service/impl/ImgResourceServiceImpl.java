@@ -87,17 +87,7 @@ public class ImgResourceServiceImpl implements ImgResourceService {
 	public List<ImgResource> getImgListByPage(ImgResource entity) {
 		return imgResourceDao.getImgListByPage(entity);
 	}
-	
-	@Override
-	public boolean removeOtherToImg(String otherId) {
-		return false;
-	}
 
-
-	@Override
-	public boolean updateImgFlag(String id, Integer flag) {
-		return false;
-	}
 
 	@Override
 	public boolean delImg(String id) {

@@ -1,5 +1,5 @@
 /*
- * FileName：ExcptUtil.java 
+ * FileName：ExceptUtil.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -28,7 +28,7 @@ import java.io.StringWriter;
  * mobile enterprise application platform
  * Version 0.1
  */
-public class ExcptUtil {
+public class ExceptUtil {
 	/**
 	 * 将CheckedException转换为UncheckedException.
 	 */

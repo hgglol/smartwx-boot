@@ -1,5 +1,5 @@
 /*
- * FileName：ImgResourceDao.java 
+ * FileName：ImgResourceDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,39 +23,43 @@ import com.wxmp.wxcms.domain.ImgResource;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 
 public interface ImgResourceDao {
-	
-	/**
-	 * 分页查询
-	 * @param entity
-	 * @return
-	 */
-	public List<ImgResource> getImgListByPage(ImgResource entity);
-	/**
-	 * 获取图片信息
-	 * @param id
-	 * @return
-	 */
-	public ImgResource getImgById(String id);
-	
-	/**
-	 * 创建资源
-	 * @param img
-	 * @return
-	 */
-	public void add(ImgResource img);
-	
-	/**
-	 * 删除中间表记录
-	 * @param otherId
-	 * @return
-	 */
-	public void deleteByMediaId(String otherId);
-	
+
+    /**
+     * 分页查询
+     *
+     * @param entity
+     * @return
+     */
+    List<ImgResource> getImgListByPage(ImgResource entity);
+
+    /**
+     * 获取图片信息
+     *
+     * @param id
+     * @return
+     */
+    ImgResource getImgById(String id);
+
+    /**
+     * 创建资源
+     *
+     * @param img
+     * @return
+     */
+    void add(ImgResource img);
+
+    /**
+     * 删除中间表记录
+     *
+     * @param otherId
+     * @return
+     */
+    void deleteByMediaId(String otherId);
+
 }

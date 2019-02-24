@@ -1,5 +1,5 @@
 /*
- * FileName：AccountMenuGroupService.java 
+ * FileName：AccountMenuGroupService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -23,25 +23,20 @@ import com.wxmp.wxcms.domain.AccountMenuGroup;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface AccountMenuGroupService {
 
-	public AccountMenuGroup getById(String id);
+    AccountMenuGroup getById(String id);
 
-	public List<AccountMenuGroup> list(AccountMenuGroup searchEntity);
+    List<AccountMenuGroup> list(AccountMenuGroup searchEntity);
 
-	public List<AccountMenuGroup> getGroupListByPage(AccountMenuGroup searchEntity);
+    void add(AccountMenuGroup entity);
 
-	public void add(AccountMenuGroup entity);
+    void update(AccountMenuGroup entity);
 
-	public void update(AccountMenuGroup entity);
+    void delete(AccountMenuGroup entity);
 
-	public void delete(AccountMenuGroup entity);
-
-	public void deleteById(long id);
-    
 }

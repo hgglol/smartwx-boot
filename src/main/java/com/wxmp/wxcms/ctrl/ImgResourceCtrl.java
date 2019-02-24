@@ -34,10 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /** 
  * @author : hermit
@@ -68,14 +65,14 @@ public class ImgResourceCtrl extends BaseCtrl {
 			obj.put("message", "没有图片上传");
 		}
 		//原文件名称
-		String trueName = file.getOriginalFilename();
+		String trueName = Objects.requireNonNull(file).getOriginalFilename();
 		//文件后缀名
 		String ext = FilenameUtils.getExtension(trueName);
 		if (!MediaTypeUtil.isImg(ext)) {
 			obj.put("message", "图片格式不正确");
 		}
 
-		if (file.getSize() > 1 * 1024 * 1024) {
+		if (file.getSize() > 1024 * 1024) {
 
 			obj.put("message", "上传图片不能大于1M");
 		}
@@ -83,12 +80,12 @@ public class ImgResourceCtrl extends BaseCtrl {
 		//系统生成的文件名
 		String fileName = System.currentTimeMillis() + new Random().nextInt(10000) + "." + ext;
 		//图片上传路径
-		String resURL = PropertiesUtil.getString("res.upload.url").toString();
+		String resURL = PropertiesUtil.getString("res.upload.url");
 		String filePath = request.getSession().getServletContext().getRealPath("/");
 
 		//读取配置文上传件的路径
 		if (PropertiesUtil.getString("res.upload.path") != null) {
-            filePath = PropertiesUtil.getString("res.upload.path").toString() + fileName;
+            filePath = PropertiesUtil.getString("res.upload.path") + fileName;
 		} else {
 			filePath = filePath + "/upload/" + fileName;
 		}
@@ -150,12 +147,12 @@ public class ImgResourceCtrl extends BaseCtrl {
 		//系统生成的文件名
 		String fileName = System.currentTimeMillis() + new Random().nextInt(10000) + "." + ext;
 		//图片上传路径
-		String resURL = PropertiesUtil.getString("res.upload.url").toString();
+		String resURL = PropertiesUtil.getString("res.upload.url");
 		String filePath = request.getSession().getServletContext().getRealPath("/");
 
 		//读取配置文上传件的路径
 		if (PropertiesUtil.getString("res.upload.path") != null) {
-			filePath = PropertiesUtil.getString("res.upload.path").toString() + fileName;
+			filePath = PropertiesUtil.getString("res.upload.path") + fileName;
 		} else {
 			filePath = filePath + "/upload/" + fileName;
 		}
@@ -167,8 +164,8 @@ public class ImgResourceCtrl extends BaseCtrl {
 		}
 		file.transferTo(saveFile);
 		//构造返回参数
-		Map<String, Object> map = new HashMap();
-		Map<String, Object> mapData = new HashMap();
+		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> mapData = new HashMap<>();
 		map.put("code", 0);//0表示成功，1失败
 		map.put("msg", "上传成功");//提示消息
 		map.put("data", mapData);//提示消息

@@ -1,5 +1,5 @@
 /*
- * FileName：Account.java 
+ * FileName：Account.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,25 +14,26 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.domain;
 
 import com.wxmp.wxapi.process.MpAccount;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Account extends MpAccount {
-	private String name;//名称
-	private Long id;
-	private Date createtime = new Date();//创建时间
+    private String name;//名称
+    private Long id;
+    private Date createtime = new Date();//创建时间
 
 }

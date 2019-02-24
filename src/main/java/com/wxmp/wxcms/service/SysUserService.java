@@ -1,5 +1,5 @@
 /*
- * FileName：SysUserService.java 
+ * FileName：SysUserService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -22,16 +22,15 @@ import com.wxmp.wxcms.domain.SysUser;
 
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface SysUserService {
 
-	public SysUser getSysUser(SysUser sysUser);
-	
-	public SysUser getSysUserById(String userId);
-	
-	public int updateLoginPwd(SysUser sysUser);
+    SysUser getSysUser(SysUser sysUser);
+
+    SysUser getSysUserById(String userId);
+
+    int updateLoginPwd(SysUser sysUser);
 }

@@ -18,7 +18,6 @@
  */
 package com.wxmp.wxcms.service.impl;
 
-import com.wxmp.wxcms.domain.AccountMenu;
 import com.wxmp.wxcms.domain.AccountMenuGroup;
 import com.wxmp.wxcms.mapper.AccountMenuDao;
 import com.wxmp.wxcms.mapper.AccountMenuGroupDao;
@@ -51,11 +50,7 @@ public class AccountMenuGroupServiceImpl implements AccountMenuGroupService{
 		return entityDao.list(searchEntity);
 	}
 
-	public List<AccountMenuGroup> getGroupListByPage(AccountMenuGroup searchEntity){
-		return entityDao.getGroupListByPage(searchEntity);
-	}
-
-	public void add(AccountMenuGroup entity){
+    public void add(AccountMenuGroup entity){
 		entityDao.add(entity);
 	}
 
@@ -68,21 +63,4 @@ public class AccountMenuGroupServiceImpl implements AccountMenuGroupService{
 		entityDao.delete(entity);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.wxmp.wxcms.service.AccountMenuGroupService#deleteById(long)
-	 */
-	@Override
-	public void deleteById(long id) {
-		AccountMenu searchEntity = new AccountMenu();
-		searchEntity.setGid(id);
-		List<AccountMenu> menuList = menuDao.listForPage(searchEntity);
-		if(menuList != null && menuList.size() > 0){
-				//删除菜单组
-				entityDao.deleteGroupById(id);
-				//删除菜单
-				entityDao.deleteMenuByGId(id);
-		}else{
-			entityDao.deleteGroupById(id);
-		}
-	}
 }

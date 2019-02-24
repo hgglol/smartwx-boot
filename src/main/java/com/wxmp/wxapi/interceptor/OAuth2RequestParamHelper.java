@@ -54,7 +54,7 @@ public class OAuth2RequestParamHelper {
 		String state = request.getParameter("state");
 		String[] stateArr = state.split("!");//用！间隔
 		Map<String,String> param = new HashMap<String,String>();
-		if(stateArr != null && stateArr.length > 0){
+		if(stateArr.length > 0){
 			for(String s : stateArr){
 				String key = s.split("=")[0];
 				String value = s.split("=")[1];

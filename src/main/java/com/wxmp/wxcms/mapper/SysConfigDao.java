@@ -1,5 +1,5 @@
 /*
- * FileName：SysConfigDao.java 
+ * FileName：SysConfigDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -24,30 +24,29 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface SysConfigDao {
 
-	/**
-	 * 获取所有数据
-	 */
-	List<SysConfig> getConfigList();
+    /**
+     * 获取所有数据
+     */
+    List<SysConfig> getConfigList();
 
-	/**
-	 * 更新数据库信息
-	 */
-	boolean update(@Param("key") String key, @Param("value") String value);
+    /**
+     * 更新数据库信息
+     */
+    boolean update(@Param("key") String key, @Param("value") String value);
 
-	/**
-	 * 获取单一
-	 */
-	String getValue(@Param("key") String key);
+    /**
+     * 获取单一
+     */
+    String getValue(@Param("key") String key);
 
-	/**
-	 * 查询数据库版本
-	 */
-	public String getMysqlVsesion();
+    /**
+     * 查询数据库版本
+     */
+    String getMysqlVsesion();
 }

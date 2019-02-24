@@ -46,10 +46,6 @@ public class AccountMenuServiceImpl implements AccountMenuService{
 		return entityDao.listWxMenus(entity);
 	}
 
-	public List<AccountMenu> listParentMenu(AccountMenu entity) {
-		return entityDao.listParentMenu(entity);
-	}
-
 	public void add(AccountMenu entity) {
 		entityDao.add(entity);
 	}

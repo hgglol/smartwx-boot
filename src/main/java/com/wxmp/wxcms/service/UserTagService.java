@@ -1,5 +1,5 @@
 /*
- * FileName：UserTagService.java 
+ * FileName：UserTagService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -23,24 +23,22 @@ import com.wxmp.wxcms.domain.UserTag;
 import java.util.List;
 
 /**
- *
  * @author fuzi Kong
  * @version 2.0
  * @date 2018-05-30 10:54:58
  */
 public interface UserTagService {
 
-	public UserTag getById(Integer id);
+    UserTag getById(Integer id);
 
-	public List<UserTag> listForPage(UserTag searchEntity);
+    List<UserTag> listForPage(UserTag searchEntity);
 
-	public void add(UserTag entity);
+    void add(UserTag entity);
 
-	public void update(UserTag entity);
+    void update(UserTag entity);
 
-	public void delete(UserTag entity);
+    void delete(UserTag entity);
 
-	public Integer deleteBatchIds(String[] ids);
-	//获取数据库中用户标签的最大值，判断是否同步
-	public Integer getMaxId();
+    Integer deleteBatchIds(String[] ids);
+
 }

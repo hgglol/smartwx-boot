@@ -72,10 +72,10 @@ public class Identities
     String nanoTimeStr = String.valueOf(nanoTime);
     int difBit = String.valueOf(9223372036854775807L).length() - nanoTimeStr.length();
     for (int i = 0; i < difBit; i++) {
-      preFix = StringUtil.concat(new Object[] { preFix, "0" });
+      preFix = StringUtil.concat(preFix, "0");
     }
     long last = atomicLongID.getAndIncrement() % 10000L + 10000L;
-    return StringUtil.concat(new Object[] { DateUtil.changeDateTOStr5(new Date(), "yyyyMMddHHmmssSSS"), preFix, nanoTimeStr, Long.valueOf(last) });
+    return StringUtil.concat(DateUtil.changeDateTOStr5(new Date(), "yyyyMMddHHmmssSSS"), preFix, nanoTimeStr, last);
   }
   /**
    * 获取一定长度的随机字符串

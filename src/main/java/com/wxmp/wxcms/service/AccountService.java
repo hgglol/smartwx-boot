@@ -1,5 +1,5 @@
 /*
- * FileName：AccountService.java 
+ * FileName：AccountService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -23,27 +23,25 @@ import com.wxmp.wxcms.domain.Account;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface AccountService {
 
-	public Account getById(Long id);
-	
-	public Account getByAccount(String account);
-	
-	public List<Account> listForPage(Account searchEntity);
+    Account getById(Long id);
 
-	public void add(Account entity);
+    Account getByAccount(String account);
 
-	public void update(Account entity);
+    List<Account> listForPage(Account searchEntity);
 
-	public void delete(Account entity);
+    void add(Account entity);
 
-	public Account getSingleAccount();
+    void update(Account entity);
 
+    void delete(Account entity);
+
+    Account getSingleAccount();
 
 
 }

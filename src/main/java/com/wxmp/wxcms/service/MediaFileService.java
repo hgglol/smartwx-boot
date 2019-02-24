@@ -1,5 +1,5 @@
 /*
- * FileName：MediaFileService.java 
+ * FileName：MediaFileService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -24,32 +24,31 @@ import java.util.List;
 
 /**
  * 语音和视频逻辑层
- * @author nigulading
  *
+ * @author nigulading
  */
 public interface MediaFileService {
 
-	/**
-	 *  分页
-	 * @param entity
-	 * @return
-	 */
-	public List<MediaFiles> getMediaListByPage(MediaFiles entity);
-	/**
-	 * 添加
-	 * @param entity
-	 */
-	public void add(MediaFiles entity);
-	
-	/**
-	 * 删除
-	 * @param mediaId
-	 */
-	public void deleteByMediaId(String mediaId);
-	/**
-	 * 获取单条数据
-	 * @param mediaId
-	 * @return
-	 */
-	public MediaFiles getFileByMediaId(String mediaId);
+    /**
+     * 分页
+     *
+     * @param entity
+     * @return
+     */
+    List<MediaFiles> getMediaListByPage(MediaFiles entity);
+
+    /**
+     * 添加
+     *
+     * @param entity
+     */
+    void add(MediaFiles entity);
+
+    /**
+     * 删除
+     *
+     * @param mediaId
+     */
+    void deleteByMediaId(String mediaId);
+
 }

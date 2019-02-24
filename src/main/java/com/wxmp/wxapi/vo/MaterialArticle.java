@@ -1,5 +1,5 @@
 /*
- * FileName：MaterialArticle.java 
+ * FileName：MaterialArticle.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,13 +14,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxapi.vo;
 
 
 import com.wxmp.core.page.Page;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -28,13 +29,14 @@ import java.io.Serializable;
  * 素材-图文
  */
 @Data
-public class MaterialArticle extends Page implements Serializable{
-	private String thumb_media_id;
-	private String author;
-	private String title;
-	private String content_source_url;
-	private String content;
-	private String digest;
-	private int show_cover_pic;
-	private String url;
+@EqualsAndHashCode(callSuper = true)
+public class MaterialArticle extends Page implements Serializable {
+    private String thumb_media_id;
+    private String author;
+    private String title;
+    private String content_source_url;
+    private String content;
+    private String digest;
+    private int show_cover_pic;
+    private String url;
 }

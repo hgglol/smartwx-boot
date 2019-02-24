@@ -43,22 +43,14 @@ public class AccountFansServiceImpl implements AccountFansService{
 		return entityDao.getById(id);
 	}
 
-	public AccountFans getByOpenId(String openId){
-		return entityDao.getByOpenId(openId);
-	}
-	
-	public List<AccountFans> list(AccountFans searchEntity){
+    public List<AccountFans> list(AccountFans searchEntity){
 		return entityDao.list(searchEntity);
 	}
 
 	public List<AccountFans> getFansListByPage(AccountFans searchEntity){
 		return entityDao.getFansListByPage(searchEntity);
 	}
-	
-	public AccountFans getLastOpenId(){
-		return entityDao.getLastOpenId();
-	}
-	
+
 	public void sync(AccountFans searchEntity){
 		AccountFans lastFans = entityDao.getLastOpenId();
 		String lastOpenId = "";
@@ -78,9 +70,6 @@ public class AccountFansServiceImpl implements AccountFansService{
 		entityDao.delete(entity);
 	}
 
-	public void deleteByOpenId(String openId){
-		entityDao.deleteByOpenId(openId);
-	}
 	@Override
 	public List<AccountFans> getFansByOpenIdListByPage(List<AccountFans> openIds) {
 		return entityDao.getFansByOpenIdListByPage(openIds);

@@ -1,5 +1,5 @@
 /*
- * FileName：AccountFansDao.java 
+ * FileName：AccountFansDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,45 +23,37 @@ import com.wxmp.wxcms.domain.AccountFans;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface AccountFansDao {
 
-	public AccountFans getById(String id);
+    AccountFans getById(String id);
 
-	public AccountFans getByOpenId(String openId);
-	
-	public List<AccountFans> list(AccountFans searchEntity);
+    AccountFans getByOpenId(String openId);
 
-	public Integer getTotalItemsCount(AccountFans searchEntity);
-	
-	public List<AccountFans> getFansListByPage(AccountFans searchEntity);
+    List<AccountFans> list(AccountFans searchEntity);
 
-	public AccountFans getLastOpenId();
-	
-	public void add(AccountFans entity);
-	
-	public void addList(List<AccountFans> list);
+    List<AccountFans> getFansListByPage(AccountFans searchEntity);
 
-	public void update(AccountFans entity);
+    AccountFans getLastOpenId();
 
-	public void delete(AccountFans entity);
+    void add(AccountFans entity);
 
-	public void deleteByOpenId(String openId);
+    void addList(List<AccountFans> list);
 
-	/**
-	 * 分页查询粉丝列表
-	 * @param searchEntity
-	 * @return
-	 */
-	public List<AccountFans> getAccountFansList(AccountFans searchEntity);
-	/**
-	 * 根据多个openId查看粉丝列表
-	 * @param openIds
-	 * @return List
-	 */
-	public List<AccountFans> getFansByOpenIdListByPage(List<AccountFans> openIds);
+    void update(AccountFans entity);
+
+    void delete(AccountFans entity);
+
+    void deleteByOpenId(String openId);
+
+    /**
+     * 根据多个openId查看粉丝列表
+     *
+     * @param openIds
+     * @return List
+     */
+    List<AccountFans> getFansByOpenIdListByPage(List<AccountFans> openIds);
 }

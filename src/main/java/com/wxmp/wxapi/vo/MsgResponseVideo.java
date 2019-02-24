@@ -1,5 +1,5 @@
 /*
- * FileName：MsgResponseVideo.java 
+ * FileName：MsgResponseVideo.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,22 +14,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxapi.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * 
  * 公众号回复给用户的消息 - 视频消息
- * 
- * 
  */
 
 @Data
-public class MsgResponseVideo extends MsgResponse{
-	private static final long serialVersionUID = 6762623431582364815L;
-	
-	private Video Video;
+@EqualsAndHashCode(callSuper = true)
+public class MsgResponseVideo extends MsgResponse {
+    private static final long serialVersionUID = 6762623431582364815L;
+
+    private Video Video;
 }

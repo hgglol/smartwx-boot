@@ -1,5 +1,5 @@
 /*
- * FileName：AccountFansService.java 
+ * FileName：AccountFansService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -23,32 +23,26 @@ import com.wxmp.wxcms.domain.AccountFans;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface AccountFansService {
 
-	public AccountFans getById(String id);
-	
-	public AccountFans getByOpenId(String openId);
+    AccountFans getById(String id);
 
-	public List<AccountFans> list(AccountFans searchEntity);
+    List<AccountFans> list(AccountFans searchEntity);
 
-	public List<AccountFans> getFansListByPage(AccountFans searchEntity);
+    List<AccountFans> getFansListByPage(AccountFans searchEntity);
 
-	public List<AccountFans> getFansByOpenIdListByPage(List<AccountFans> openIds);
-	
-	public AccountFans getLastOpenId();
+    List<AccountFans> getFansByOpenIdListByPage(List<AccountFans> openIds);
 
-	public void sync(AccountFans searchEntity);
-	
-	public void add(AccountFans entity);
+    void sync(AccountFans searchEntity);
 
-	public void update(AccountFans entity);
+    void add(AccountFans entity);
 
-	public void delete(AccountFans entity);
+    void update(AccountFans entity);
 
-	public void deleteByOpenId(String openId);
+    void delete(AccountFans entity);
+
 }

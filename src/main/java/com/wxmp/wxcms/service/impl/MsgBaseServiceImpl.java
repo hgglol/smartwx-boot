@@ -1,5 +1,5 @@
 /*
- * FileName：MsgBaseServiceImpl.java 
+ * FileName：MsgBaseServiceImpl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service.impl;
 
@@ -27,37 +27,35 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 @Service
-public class MsgBaseServiceImpl implements MsgBaseService{
+public class MsgBaseServiceImpl implements MsgBaseService {
 
-	@Resource
-	private MsgBaseDao entityDao;
+    @Resource
+    private MsgBaseDao entityDao;
 
-	public MsgBase getById(String id){
-		return entityDao.getById(id);
-	}
+    public MsgBase getById(String id) {
+        return entityDao.getById(id);
+    }
 
-	public List<MsgBase> listForPage(MsgBase searchEntity){
-		return entityDao.listForPage(searchEntity);
-	}
+    public List<MsgBase> listForPage(MsgBase searchEntity) {
+        return entityDao.listForPage(searchEntity);
+    }
 
-	public void add(MsgBase entity){
-		entityDao.add(entity);
-	}
+    public void add(MsgBase entity) {
+        entityDao.add(entity);
+    }
 
-	public void update(MsgBase entity){
-		entityDao.update(entity);
-	}
+    public void update(MsgBase entity) {
+        entityDao.update(entity);
+    }
 
-	public void delete(MsgBase entity){
-		entityDao.delete(entity);
-	}
-
+    public void delete(MsgBase entity) {
+        entityDao.delete(entity);
+    }
 
 
 }

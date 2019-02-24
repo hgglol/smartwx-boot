@@ -73,12 +73,10 @@ public class WxApiCtrl extends BaseCtrl {
 		//如果是多账号，根据url中的account参数获取对应的MpAccount处理即可
 		
 		Set<String> keySet = request.getParameterMap().keySet();
-		Iterator<String> iterator = keySet.iterator();
-        while(iterator.hasNext()){  
-            //如果存在，则调用next实现迭代  
-            String key=iterator.next();
-			log.info("key: " + key + " value: " + request.getParameterMap().get(key));
-        }
+		for (String key : keySet) {
+			//如果存在，则调用next实现迭代
+			log.info("key: " + key + " value: " + Arrays.toString(request.getParameterMap().get(key)));
+		}
 		
 		
 		MpAccount mpAccount = WxMemoryCacheClient.getMpAccount();//获取缓存中的唯一账号

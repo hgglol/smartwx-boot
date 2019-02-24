@@ -1,5 +1,5 @@
 /*
- * FileName：Video.java 
+ * FileName：Video.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxapi.vo;
 
@@ -25,6 +25,6 @@ import lombok.Data;
  */
 @Data
 public class Video {
-	private String MediaId;
-	private String ThumbMediaId;
+    private String MediaId;
+    private String ThumbMediaId;
 }

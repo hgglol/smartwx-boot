@@ -1,5 +1,5 @@
 /*
- * FileName：TplMsgText.java 
+ * FileName：TplMsgText.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,23 +14,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class TplMsgText extends MsgBase {
-	private String title;//消息标题
-	private String content;//消息内容
-	private Long baseId;//消息主表id
-	private String tplId;//消息主表id
-	private String wxTpl;//微信模板
+    private String title;//消息标题
+    private String content;//消息内容
+    private Long baseId;//消息主表id
+    private String tplId;//消息主表id
+    private String wxTpl;//微信模板
 }

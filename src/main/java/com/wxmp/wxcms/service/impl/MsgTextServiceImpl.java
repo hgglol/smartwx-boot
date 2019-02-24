@@ -87,11 +87,8 @@ public class MsgTextServiceImpl implements MsgTextService{
 	public MsgText getRandomMsg(String inputCode){
 		return entityDao.getRandomMsg(inputCode);
 	}
-	public MsgText getRandomMsg2(){
-		return entityDao.getRandomMsg2();
-	}
 
-	/* (non-Javadoc)
+    /* (non-Javadoc)
 	 * @see com.wxmp.wxcms.service.MsgTextService#getByBaseId(java.lang.String)
 	 */
 	@Override

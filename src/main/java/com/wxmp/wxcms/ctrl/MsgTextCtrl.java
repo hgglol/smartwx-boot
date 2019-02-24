@@ -1,5 +1,5 @@
 /*
- * FileName：MsgTextCtrl.java 
+ * FileName：MsgTextCtrl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.ctrl;
 
@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
@@ -44,9 +43,6 @@ public class MsgTextCtrl extends BaseCtrl {
     @Autowired
     private MsgTextService entityService;
 
-    @Autowired
-    private MsgBaseService baseService;
-
     @ResponseBody
     @RequestMapping(value = "/getById")
     public AjaxResult getById(String id) {
@@ -56,14 +52,14 @@ public class MsgTextCtrl extends BaseCtrl {
 
     @ResponseBody
     @RequestMapping(value = "/list")
-    public AjaxResult list(MsgText searchEntity) throws BusinessException {
+    public AjaxResult list(MsgText searchEntity) {
         List<MsgText> pageList = entityService.getMsgTextByPage(searchEntity);
         return getResult(searchEntity, pageList);
     }
 
     /**
      * 修改/添加
-     * 
+     *
      * @param entity
      * @return
      */

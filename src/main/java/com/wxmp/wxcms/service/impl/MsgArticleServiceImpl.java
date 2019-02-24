@@ -1,5 +1,5 @@
 /*
- * FileName：MsgArticleServiceImpl.java 
+ * FileName：MsgArticleServiceImpl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service.impl;
 
@@ -26,10 +26,8 @@ import com.wxmp.wxcms.service.MsgArticleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
@@ -37,65 +35,42 @@ import java.util.List;
 @Service
 public class MsgArticleServiceImpl implements MsgArticleService {
 
-	@Resource
-	private MsgArticleDao articleDao;
-	
-	@Resource
-	private MsgNewsDao entityDao;
-	
-	@Override
-	public List<MsgArticle> getByNewsId(int id) {
-		// TODO Auto-generated method stub
-		return articleDao.getByNewsId(id);
-	}
+    @Resource
+    private MsgArticleDao articleDao;
 
-	@Override
-	public MsgArticle getById(int id) {
-		// TODO Auto-generated method stub
-		return articleDao.getById(id);
-	}
+    @Resource
+    private MsgNewsDao entityDao;
 
-	@Override
-	public void add(MsgArticle article) {
-		// TODO Auto-generated method stub
-		articleDao.add(article);
-	}
+    @Override
+    public MsgArticle getById(int id) {
+        return articleDao.getById(id);
+    }
 
-	@Override
-	public void insertByBatch(List<MsgArticle> articles) {
-		// TODO Auto-generated method stub
-		articleDao.insertByBatch(articles);
-	}
+    @Override
+    public void add(MsgArticle article) {
+        articleDao.add(article);
+    }
 
-	@Override
-	public void update(MsgArticle article) {
-		// TODO Auto-generated method stub
-//		this.getById(article.getArId());
-		if(article.getNewsIndex()==0){
-			MsgNews news = entityDao.getById(String.valueOf(article.getNewsId()));
-			news.setTitle(article.getTitle());
-			news.setAuthor(article.getAuthor());
-			news.setBrief(article.getDigest());
-			news.setDescription(article.getContent());
-			news.setPicpath(article.getPicUrl());
-			news.setThumbMediaId(article.getThumbMediaId());
-			news.setFromurl(article.getContentSourceUrl());
-			news.setShowpic(article.getShowCoverPic());
-			entityDao.update(news);
-		}
-		articleDao.update(article);
-	}
+    @Override
+    public void update(MsgArticle article) {
+        if (article.getNewsIndex() == 0) {
+            MsgNews news = entityDao.getById(String.valueOf(article.getNewsId()));
+            news.setTitle(article.getTitle());
+            news.setAuthor(article.getAuthor());
+            news.setBrief(article.getDigest());
+            news.setDescription(article.getContent());
+            news.setPicpath(article.getPicUrl());
+            news.setThumbMediaId(article.getThumbMediaId());
+            news.setFromurl(article.getContentSourceUrl());
+            news.setShowpic(article.getShowCoverPic());
+            entityDao.update(news);
+        }
+        articleDao.update(article);
+    }
 
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		articleDao.delete(id);
-	}
-
-	@Override
-	public void deleteByBatch(int id) {
-		// TODO Auto-generated method stub
-		articleDao.deleteByBatch(id);
-	}
+    @Override
+    public void delete(int id) {
+        articleDao.delete(id);
+    }
 
 }

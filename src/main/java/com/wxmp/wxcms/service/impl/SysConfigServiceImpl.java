@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,16 +44,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     public List<SysConfig> getConfigList() {
         return configDao.getConfigList();
-    }
-
-    @Override
-    public Map<String, String> getSysConfigToMap() {
-        List<SysConfig> allList = this.getConfigList();
-        Map<String,String> map = new HashMap<>();
-        for (SysConfig config : allList) {
-            map.put(config.getJkey(),config.getJvalue());
-        }
-        return map;
     }
 
     @Override

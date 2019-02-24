@@ -1,5 +1,5 @@
 /*
- * FileName：TplMsgTextDao.java 
+ * FileName：TplMsgTextDao.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.mapper;
 
@@ -23,24 +23,21 @@ import com.wxmp.wxcms.domain.TplMsgText;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface TplMsgTextDao {
 
-	public TplMsgText getById(String id);
+    TplMsgText getById(String id);
 
-	public List<TplMsgText> getTplMsgTextByPage(TplMsgText searchEntity);
+    List<TplMsgText> getTplMsgTextByPage(TplMsgText searchEntity);
 
-	public List<TplMsgText> getTplMsgTextList(TplMsgText searchEntity);
+    void add(TplMsgText entity);
 
-	public void add(TplMsgText entity);
+    void update(TplMsgText entity);
 
-	public void update(TplMsgText entity);
+    void delete(TplMsgText entity);
 
-	public void delete(TplMsgText entity);
-
-	public TplMsgText getByBaseId(String baseid);
+    TplMsgText getByBaseId(String baseid);
 }

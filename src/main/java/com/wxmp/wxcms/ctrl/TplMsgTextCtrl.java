@@ -1,5 +1,5 @@
 /*
- * FileName：TplMsgTextCtrl.java 
+ * FileName：TplMsgTextCtrl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.ctrl;
 
@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
@@ -40,49 +39,50 @@ import java.util.List;
 @RequestMapping("/tplmsgtext")
 public class TplMsgTextCtrl extends BaseCtrl {
 
-	@Autowired
-	private TplMsgTextService entityService;
-	
-
-	@ResponseBody
-	@RequestMapping(value = "/getById")
-	public AjaxResult getById(String id){
-		TplMsgText text = entityService.getById(id);
-		return AjaxResult.success(text);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/list")
-	public AjaxResult list(TplMsgText searchEntity) throws BusinessException {
-		List<TplMsgText> pageList = entityService.getTplMsgTextByPage(searchEntity);
-		return getResult(searchEntity,pageList);
-	}
+    @Autowired
+    private TplMsgTextService entityService;
 
 
-	/**
-	 * 修改/添加
-	 * @param entity
-	 * @return
-	 */
-	@RequestMapping(value = "/updateText")
-	@ResponseBody
-	public AjaxResult updateText(TplMsgText entity){
-		if (entity.getId() != null) {
-			entityService.update(entity);
-			//更新成功
-			return AjaxResult.updateSuccess();
-		} else {
-			//添加成功
-			entityService.add(entity);
-			return AjaxResult.saveSuccess();
-		}
-	}
+    @ResponseBody
+    @RequestMapping(value = "/getById")
+    public AjaxResult getById(String id) {
+        TplMsgText text = entityService.getById(id);
+        return AjaxResult.success(text);
+    }
 
-	@RequestMapping(value = "/deleteById")
-	@ResponseBody
-	public AjaxResult deleteById(String baseId) {
-		entityService.delete(baseId);
-		return AjaxResult.deleteSuccess();
-	}
+    @ResponseBody
+    @RequestMapping(value = "/list")
+    public AjaxResult list(TplMsgText searchEntity) {
+        List<TplMsgText> pageList = entityService.getTplMsgTextByPage(searchEntity);
+        return getResult(searchEntity, pageList);
+    }
+
+
+    /**
+     * 修改/添加
+     *
+     * @param entity
+     * @return
+     */
+    @RequestMapping(value = "/updateText")
+    @ResponseBody
+    public AjaxResult updateText(TplMsgText entity) {
+        if (entity.getId() != null) {
+            entityService.update(entity);
+            //更新成功
+            return AjaxResult.updateSuccess();
+        } else {
+            //添加成功
+            entityService.add(entity);
+            return AjaxResult.saveSuccess();
+        }
+    }
+
+    @RequestMapping(value = "/deleteById")
+    @ResponseBody
+    public AjaxResult deleteById(String baseId) {
+        entityService.delete(baseId);
+        return AjaxResult.deleteSuccess();
+    }
 
 }

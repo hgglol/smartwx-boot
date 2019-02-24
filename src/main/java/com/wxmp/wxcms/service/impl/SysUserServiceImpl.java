@@ -1,5 +1,5 @@
 /*
- * FileName：SysUserServiceImpl.java 
+ * FileName：SysUserServiceImpl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service.impl;
 
@@ -26,56 +26,51 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 @Service
-public class SysUserServiceImpl  implements SysUserService{
+public class SysUserServiceImpl implements SysUserService {
 
-	@Resource
-	private SysUserDao sysUserDao;
-	
-	@Override
-	public SysUser getSysUser(SysUser sysUser) {
-		SysUser resUser = null;
-		
-		resUser = this.sysUserDao.getSysUser(sysUser);
+    @Resource
+    private SysUserDao sysUserDao;
 
-		if(resUser != null){
-			return resUser;
-		}else{
-			return null;
-		}
-	}
+    @Override
+    public SysUser getSysUser(SysUser sysUser) {
+        SysUser resUser = this.sysUserDao.getSysUser(sysUser);
+
+        if (resUser != null) {
+            return resUser;
+        } else {
+            return null;
+        }
+    }
 
 
-	/* (non-Javadoc)
-	 * @see com.wxmp.backstage.sys.ISysUserService#getSysUserById(java.lang.String)
-	 */
-	@Override
-	public SysUser getSysUserById(String userId) {
-		SysUser resUser = null;
-		
-		resUser = this.sysUserDao.getSysUserById(userId);
+    /* (non-Javadoc)
+     * @see com.wxmp.backstage.sys.ISysUserService#getSysUserById(java.lang.String)
+     */
+    @Override
+    public SysUser getSysUserById(String userId) {
+        SysUser resUser = this.sysUserDao.getSysUserById(userId);
 
-		if(resUser != null){
-			return resUser;
-		}else{
-			return null;
-		}
-	}
+        if (resUser != null) {
+            return resUser;
+        } else {
+            return null;
+        }
+    }
 
 
-	@Override
-	public int updateLoginPwd(SysUser sysUser) {
-		int n = 0;
-		try {
-			sysUserDao.updateLoginPwd(sysUser);
-			n = 1;
-		} catch (Exception e) {
-		}
-		return n;
-	}
+    @Override
+    public int updateLoginPwd(SysUser sysUser) {
+        int n = 0;
+        try {
+            sysUserDao.updateLoginPwd(sysUser);
+            n = 1;
+        } catch (Exception ignored) {
+        }
+        return n;
+    }
 }

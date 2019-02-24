@@ -1,5 +1,5 @@
 /*
- * FileName：SysConfigService.java 
+ * FileName：SysConfigService.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxcms.service;
 
@@ -26,24 +26,21 @@ import java.util.Map;
 
 
 /**
- *
  * @author hermit
  * @version 2.0
  * @date 2018-04-17 10:54:58
  */
 public interface SysConfigService {
 
-    public List<SysConfig> getConfigList();
-    
-    public Map<String, String> getSysConfigToMap();
-    
-    public String getValue(String key);
-    
-    public void update(Map<String, String> params, HttpServletRequest request);
-    
+    List<SysConfig> getConfigList();
+
+    String getValue(String key);
+
+    void update(Map<String, String> params, HttpServletRequest request);
+
     /**
      * 查询数据库版本
      */
-    public String getMysqlVsesion();
+    String getMysqlVsesion();
 
 }
