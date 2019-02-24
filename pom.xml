@@ -2,10 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.hermit</groupId>
     <artifactId>smartwx</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
     <name>smartwx-boot</name>
@@ -23,25 +22,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <!-- tools version setting -->
-        <druid.version>1.0.28</druid.version>
         <ehcache.version>2.6.11</ehcache.version>
         <ehcache-web.version>2.0.4</ehcache-web.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-codec.version>1.9</commons-codec.version>
-        <commons-fileupload.version>[1.3.3,)</commons-fileupload.version>
         <commons-beanutils.version>1.9.1</commons-beanutils.version>
         <xstream.version>1.4.9</xstream.version>
-        <jackson.version>2.8.6</jackson.version>
-        <fastjson.version>1.2.4</fastjson.version>
         <metadata-extractor.version>2.6.2</metadata-extractor.version>
         <jsoup.version>1.11.2</jsoup.version>
-        <lombok.version>1.16.16</lombok.version>
         <guava.version>20.0</guava.version>
         <commons-lang3.version>3.5</commons-lang3.version>
-        <common-lang.version>2.6</common-lang.version>
         <zxing.version>2.2</zxing.version>
-        <junit.version>4.11</junit.version>
         <httpclient.version>4.5.2</httpclient.version>
         <httpcore.version>4.4.6</httpcore.version>
         <swagger-ui.version>2.5.0</swagger-ui.version>
@@ -50,45 +41,9 @@
         <cglib.version>3.1</cglib.version>
         <taglibs.version>1.1.2</taglibs.version>
         <jstl.version>1.2</jstl.version>
-        <servlet-api.version>3.0.1</servlet-api.version>
-        <commons-dbcp.version>1.4</commons-dbcp.version>
     </properties>
 
-    <!-- 设定仓库 -->
-    <repositories>
-        <repository>
-            <id>central-repos</id>
-            <name>Central Repository</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>central-repos1</id>
-            <name>Central Repository 1</name>
-            <url>http://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
-    <build>
-        <finalName>ROOT</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -96,7 +51,13 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
+            <version>1.3.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
         </dependency>
 
         <dependency>
@@ -104,15 +65,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>3.3.0</version>
         </dependency>
 
         <!-- GENERAL UTILS begin -->
@@ -127,11 +84,6 @@
             <version>${commons-codec.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${commons-fileupload.version}</version>
-        </dependency>
-        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
@@ -143,31 +95,22 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>${commons-dbcp.version}</version>
-        </dependency>
         <!-- jackson json -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jaxb-annotations</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -200,18 +143,6 @@
             <version>${zxing.version}</version>
         </dependency>
 
-        <!-- TEST begin -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <!-- TEST end -->
         <!--httpcore -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -227,12 +158,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
             <version>${httpclient.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -267,11 +192,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${common-lang.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-configuration</groupId>
@@ -310,6 +230,40 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
+    <!-- 设定仓库 -->
+    <repositories>
+        <repository>
+            <id>central-repos</id>
+            <name>Central Repository</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>central-repos1</id>
+            <name>Central Repository 1</name>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
