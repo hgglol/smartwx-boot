@@ -56,8 +56,10 @@ public class WxApiCtrl extends BaseCtrl {
 
     @Resource
     private MyService myService;
+
     @Resource
     private MsgTextService msgTextService;
+
     @Resource
     private MsgNewsService msgNewsService;
 
@@ -70,13 +72,10 @@ public class WxApiCtrl extends BaseCtrl {
     @RequestMapping(value = "/{account}/message", method = RequestMethod.GET)
     public String doGet(HttpServletRequest request, @PathVariable String account) {
         //如果是多账号，根据url中的account参数获取对应的MpAccount处理即可
-
-        Set<String> keySet = request.getParameterMap().keySet();
-        for (String key : keySet) {
-            //如果存在，则调用next实现迭代
-            log.info("key: " + key + " value: " + Arrays.toString(request.getParameterMap().get(key)));
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+            log.info("key: {} value: {}", entry.getKey(), Arrays.toString(entry.getValue()));
         }
-
 
         MpAccount mpAccount = WxMemoryCacheClient.getMpAccount();//获取缓存中的唯一账号
         if (mpAccount != null) {
@@ -99,13 +98,12 @@ public class WxApiCtrl extends BaseCtrl {
      */
     @RequestMapping(value = "/{account}/message", method = RequestMethod.POST)
     public String doPost(HttpServletRequest request, @PathVariable String account, HttpServletResponse response) {
-        //处理用户和微信公众账号交互消息
-        MpAccount mpAccount = WxMemoryCacheClient.getMpAccount(account);
         try {
+            //处理用户和微信公众账号交互消息
+            MpAccount mpAccount = WxMemoryCacheClient.getMpAccount(account);
             MsgRequest msgRequest = MsgXmlUtil.parseXml(request);//获取发送的消息
             return myService.processMsg(msgRequest, mpAccount);
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e.getMessage(), e);
             return "error";
         }

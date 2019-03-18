@@ -1,5 +1,5 @@
 /*
- * FileName：MyServiceImpl.java 
+ * FileName：MyServiceImpl.java
  * <p>
  * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
  * <p>
@@ -14,7 +14,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.wxmp.wxapi.service.impl;
 
@@ -70,27 +70,28 @@ public class MyServiceImpl implements MyService {
     /**
      * 处理消息
      * 开发者可以根据用户发送的消息和自己的业务，自行返回合适的消息；
+     *
      * @param msgRequest : 接收到的消息
-     * @param mpAccount ： appId
+     * @param mpAccount  ： appId
      */
-    public String processMsg(MsgRequest msgRequest, MpAccount mpAccount)  throws WxErrorException {
-        String msgtype = msgRequest.getMsgType();// 接收到的消息类型
+    public String processMsg(MsgRequest msgRequest, MpAccount mpAccount) throws WxErrorException {
+        String msgType = msgRequest.getMsgType();// 接收到的消息类型
         String respXml = null;// 返回的内容；
-        if (msgtype.equals(MsgType.Text.toString())) {
+        if (msgType.equals(MsgType.Text.toString())) {
             /**
              * 文本消息，一般公众号接收到的都是此类型消息
              */
             respXml = this.processTextMsg(msgRequest, mpAccount);
-        } else if (msgtype.equals(MsgType.Event.toString())) {// 事件消息
+        } else if (msgType.equals(MsgType.Event.toString())) {// 事件消息
             /**
              * 用户订阅公众账号、点击菜单按钮的时候，会触发事件消息
              */
             respXml = this.processEventMsg(msgRequest, mpAccount);
 
             // 其他消息类型，开发者自行处理
-        } else if (msgtype.equals(MsgType.Image.toString())) {// 图片消息
+        } else if (msgType.equals(MsgType.Image.toString())) {// 图片消息
 
-        } else if (msgtype.equals(MsgType.Location.toString())) {// 地理位置消息
+        } else if (msgType.equals(MsgType.Location.toString())) {// 地理位置消息
 
         }
 
@@ -149,7 +150,7 @@ public class MyServiceImpl implements MyService {
                 /**
                  * 固定消息
                  * _fix_ ：在我们创建菜单的时候，做了限制，对应的event_key 加了 _fix_
-                 * 
+                 *
                  * 当然开发者也可以进行修改
                  */
                 if (key.startsWith("_fix_")) {
@@ -189,9 +190,9 @@ public class MyServiceImpl implements MyService {
         List<AccountMenu> menus = menuDao.listWxMenus(new AccountMenu());
         Matchrule matchrule = new Matchrule();
         String menuJson = JSONObject.toJSONString(WxUtil.prepareMenus(menus, matchrule));
-        log.info("创建菜单传参如下:" + menuJson);
+        log.info("创建菜单传参如下:{}", menuJson);
         JSONObject rstObj = WxApiClient.publishMenus(menuJson, mpAccount);// 创建普通菜单
-        log.info("创建菜单返回消息如下:" + rstObj.toString());
+        log.info("创建菜单返回消息如下:{}", rstObj.toString());
         // 以下为创建个性化菜单demo，只为男创建菜单；其他个性化需求 设置 Matchrule 属性即可
         // matchrule.setSex("1");//1-男 ；2-女
         // JSONObject rstObj = WxApiClient.publishAddconditionalMenus(menuJson,mpAccount);//创建个性化菜单
@@ -209,7 +210,7 @@ public class MyServiceImpl implements MyService {
     }
 
     // 删除菜单
-    public JSONObject deleteMenu(MpAccount mpAccount)  throws WxErrorException {
+    public JSONObject deleteMenu(MpAccount mpAccount) throws WxErrorException {
         JSONObject rstObj = WxApiClient.deleteMenu(mpAccount);
         if (rstObj != null && rstObj.getIntValue("errcode") == 0) {// 成功，更新菜单组
             menuGroupDao.updateMenuGroupDisable();
@@ -272,21 +273,21 @@ public class MyServiceImpl implements MyService {
 
     //同步粉丝列表
     public boolean syncUserTagList(MpAccount mpAccount) throws WxErrorException {
-        String url=null;
+        String url = null;
         try {
             url = WxApi.getUserTagList(WxApiClient.getAccessToken(mpAccount));
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
-        log.info("同步用户标签参消息如下:"+url);
+        log.info("同步用户标签参消息如下:" + url);
         JSONObject jsonObject = WxApi.httpsRequest(url, HttpMethod.GET, null);
-        log.info("同步用户标签消息如下:"+jsonObject.toString());
-        if(jsonObject.containsKey("errcode")){
+        log.info("同步用户标签消息如下:" + jsonObject.toString());
+        if (jsonObject.containsKey("errcode")) {
             return false;
         }
         JSONArray arr = jsonObject.getJSONArray("tags");//获取jsonArray对象
-        String js=JSONObject.toJSONString(arr);//将array数组转换成字符串
-        List<UserTag> userTagList=JSONObject.parseArray(js, UserTag.class);//把字符串转换成集合
+        String js = JSONObject.toJSONString(arr);//将array数组转换成字符串
+        List<UserTag> userTagList = JSONObject.parseArray(js, UserTag.class);//把字符串转换成集合
         //判断是否已经同步
         Collections.sort(userTagList, new Comparator<UserTag>() {
             @Override
@@ -295,14 +296,14 @@ public class MyServiceImpl implements MyService {
             }
         });
         UserTag userTag = userTagList.get(0);
-        Integer maxIdInDb = userTagDao.getMaxId() == null ?  0 : userTagDao.getMaxId();//第一次同步，数据库没有数据返回null
+        Integer maxIdInDb = userTagDao.getMaxId() == null ? 0 : userTagDao.getMaxId();//第一次同步，数据库没有数据返回null
         if (null == userTag.getId() || userTag.getId().intValue() == maxIdInDb.intValue()) {
             //说明已经同步
             return true;
-        }else if( userTag.getId() > maxIdInDb ){
+        } else if (userTag.getId() > maxIdInDb) {
             //如果微信服务器新增用户标签，同步新增标签，新增标签的ID比本地库的ID大
-            for (UserTag tag: userTagList) {
-                if(tag.getId()<=maxIdInDb){
+            for (UserTag tag : userTagList) {
+                if (tag.getId() <= maxIdInDb) {
                     userTagList.remove(tag);
                 }
             }
