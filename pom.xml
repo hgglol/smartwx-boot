@@ -117,6 +117,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.55</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.1</version>
+        </dependency>
         <!-- xstream xml -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>

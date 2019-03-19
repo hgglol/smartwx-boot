@@ -31,11 +31,11 @@ import com.wxmp.wxcms.mapper.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -219,6 +219,7 @@ public class MyServiceImpl implements MyService {
     }
 
     // 获取用户列表
+    @Override
     public boolean syncAccountFansList(MpAccount mpAccount) throws WxErrorException {
         String nextOpenId = null;
         AccountFans lastFans = fansDao.getLastOpenId();
@@ -228,22 +229,28 @@ public class MyServiceImpl implements MyService {
         return doSyncAccountFansList(nextOpenId, mpAccount);
     }
 
-    // 同步粉丝列表(开发者在这里可以使用递归处理)
+    /**
+     * 同步粉丝列表(开发者在这里可以使用递归处理)
+     *
+     * @param nextOpenId
+     * @param mpAccount
+     * @return
+     * @throws WxErrorException
+     */
     private boolean doSyncAccountFansList(String nextOpenId, MpAccount mpAccount) throws WxErrorException {
         String url = WxApi.getFansListUrl(WxApiClient.getAccessToken(mpAccount), nextOpenId);
         log.info("同步粉丝入参消息如下:" + url);
-        JSONObject jsonObject = WxApi.httpsRequest(url, HttpMethod.POST, null);
+        JSONObject jsonObject = WxApi.httpsRequest(url, HttpMethod.POST.name(), null);
         log.info("同步粉丝返回消息如下:" + jsonObject.toString());
         if (jsonObject.containsKey("errcode")) {
             return false;
         }
-        List<AccountFans> fansList = new ArrayList<AccountFans>();
+        List<AccountFans> fansList = new ArrayList<>();
         if (jsonObject.containsKey("data")) {
             if (jsonObject.getJSONObject("data").containsKey("openid")) {
                 JSONArray openidArr = jsonObject.getJSONObject("data").getJSONArray("openid");
                 int length = openidArr.size();
-                for (int i = 0; i < length; i++) {
-                    Object openId = openidArr.get(i);
+                for (Object openId : openidArr) {
                     AccountFans fans = WxApiClient.syncAccountFans(openId.toString(), mpAccount);
                     // 设置公众号
                     fans.setAccount(WxMemoryCacheClient.getAccount());
@@ -256,7 +263,16 @@ public class MyServiceImpl implements MyService {
         return true;
     }
 
-    // 获取用户信息接口 - 必须是开通了认证服务，否则微信平台没有开放此功能
+    /**
+     * 获取用户信息接口 - 必须是开通了认证服务，否则微信平台没有开放此功能
+     *
+     * @param openId
+     * @param mpAccount
+     * @param merge
+     * @return
+     * @throws WxErrorException
+     */
+    @Override
     public AccountFans syncAccountFans(String openId, MpAccount mpAccount, boolean merge) throws WxErrorException {
         AccountFans fans = WxApiClient.syncAccountFans(openId, mpAccount);
         if (merge && null != fans) {
@@ -271,7 +287,14 @@ public class MyServiceImpl implements MyService {
         return fans;
     }
 
-    //同步粉丝列表
+    /**
+     * 同步粉丝列表
+     *
+     * @param mpAccount
+     * @return
+     * @throws WxErrorException
+     */
+    @Override
     public boolean syncUserTagList(MpAccount mpAccount) throws WxErrorException {
         String url = null;
         try {
@@ -280,23 +303,35 @@ public class MyServiceImpl implements MyService {
             e.printStackTrace();
         }
         log.info("同步用户标签参消息如下:" + url);
-        JSONObject jsonObject = WxApi.httpsRequest(url, HttpMethod.GET, null);
+        JSONObject jsonObject = WxApi.httpsRequest(url, HttpMethod.GET.name(), null);
         log.info("同步用户标签消息如下:" + jsonObject.toString());
         if (jsonObject.containsKey("errcode")) {
             return false;
         }
-        JSONArray arr = jsonObject.getJSONArray("tags");//获取jsonArray对象
-        String js = JSONObject.toJSONString(arr);//将array数组转换成字符串
-        List<UserTag> userTagList = JSONObject.parseArray(js, UserTag.class);//把字符串转换成集合
+        /**
+         * 获取jsonArray对象
+         */
+        JSONArray arr = jsonObject.getJSONArray("tags");
+        /**
+         * 将array数组转换成字符串
+         */
+        String js = JSONObject.toJSONString(arr);
+        /**
+         * 把字符串转换成集合
+         */
+        List<UserTag> userTagList = JSONObject.parseArray(js, UserTag.class);
         //判断是否已经同步
-        Collections.sort(userTagList, new Comparator<UserTag>() {
+        userTagList.sort(new Comparator<UserTag>() {
             @Override
             public int compare(UserTag o1, UserTag o2) {
                 return o2.getId().compareTo(o1.getId());
             }
         });
         UserTag userTag = userTagList.get(0);
-        Integer maxIdInDb = userTagDao.getMaxId() == null ? 0 : userTagDao.getMaxId();//第一次同步，数据库没有数据返回null
+        /**
+         * 第一次同步，数据库没有数据返回null
+         */
+        Integer maxIdInDb = userTagDao.getMaxId() == null ? 0 : userTagDao.getMaxId();
         if (null == userTag.getId() || userTag.getId().intValue() == maxIdInDb.intValue()) {
             //说明已经同步
             return true;

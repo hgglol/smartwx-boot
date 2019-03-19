@@ -1,21 +1,3 @@
-/*
- * FileName：WxApiClient.java 
- * <p>
- * Copyright (c) 2017-2020, <a href="http://www.webcsn.com">hermit (794890569@qq.com)</a>.
- * <p>
- * Licensed under the GNU General Public License, Version 3 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.gnu.org/licenses/gpl-3.0.html
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- */
 package com.wxmp.wxapi.process;
 
 import com.alibaba.fastjson.JSONArray;
@@ -32,6 +14,7 @@ import com.wxmp.wxcms.domain.AccountFans;
 import com.wxmp.wxcms.domain.MsgNews;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -45,10 +28,10 @@ import java.util.List;
 @Slf4j
 @Component
 public class WxApiClient {
-    
+
     // 获取accessToken
     public static String getAccessToken(MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         // 获取唯一的accessToken，如果是多账号，请自行处理
         AccessToken token = WxMemoryCacheClient.getAccessToken();
         if (token != null && !token.isExpires() && WxApi.getCallbackIp(token.getAccessToken())) {// 不为空，并且没有过期
@@ -67,10 +50,10 @@ public class WxApiClient {
             return null;
         }
     }
-    
+
     // 获取jsTicket
     public static String getJSTicket(MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         // 获取唯一的JSTicket，如果是多账号，请自行处理
         JSTicket jsTicket = WxMemoryCacheClient.getJSTicket();
         if (jsTicket != null && !jsTicket.isExpires()) {// 不为空，并且没有过期
@@ -82,17 +65,17 @@ public class WxApiClient {
                 if (jsTicket.getErrcode() == null) {
                     WxMemoryCacheClient.addJSTicket(mpAccount.getAccount(), jsTicket);
                     return jsTicket.getTicket();
-                }else{
+                } else {
                     throw new WxErrorException(WxError.newBuilder().setErrorCode(jsTicket.getErrcode()).setErrorMsg(jsTicket.getErrmsg()).build());
                 }
             }
             return null;
         }
     }
-    
+
     // 获取OAuthAccessToken
     public static OAuthAccessToken getOAuthAccessToken(MpAccount mpAccount, String code)
-        throws WxErrorException {
+            throws WxErrorException {
         // 获取唯一的accessToken，如果是多账号，请自行处理
         OAuthAccessToken token = WxMemoryCacheClient.getOAuthAccessToken();
         if (token != null && !token.isExpires()) {// 不为空，并且没有过期
@@ -111,10 +94,10 @@ public class WxApiClient {
             return null;
         }
     }
-    
+
     // 获取openId
     public static String getOAuthOpenId(MpAccount mpAccount, String code)
-        throws WxErrorException {
+            throws WxErrorException {
         OAuthAccessToken token = WxApi.getOAuthAccessToken(mpAccount.getAppid(), mpAccount.getAppsecret(), code);
         if (token != null) {
             if (token.getErrcode() != null) {// 获取失败
@@ -125,66 +108,67 @@ public class WxApiClient {
         }
         return null;
     }
-	//创建用户标签
-	public static JSONObject createUserTag(String userTags, MpAccount mpAccount ) throws WxErrorException {
-		String accessToken = getAccessToken(mpAccount);
-		String url = WxApi.getCreateUserTag(accessToken);
-		return WxApi.httpsRequest(url, HttpMethod.POST, userTags);
-	}
-	
-	//获取标签下粉丝列表
-	public static JSONObject getUserListByTag(String tagId, MpAccount mpAccount) throws WxErrorException {
-		String accessToken = getAccessToken(mpAccount);
-		String url = WxApi.getUserListByTag(accessToken);
-		return WxApi.httpsRequest(url, HttpMethod.POST, tagId);
-	}
-	
-	//删除用户标签
-	public static JSONObject deleteUserTag(String tagId, MpAccount mpAccount) throws WxErrorException {
-		String accessToken = getAccessToken(mpAccount);
-		String url = WxApi.getDeleteUserTag(accessToken);
-		return WxApi.httpsRequest(url, HttpMethod.POST, tagId);
-	}
-	
+
+    //创建用户标签
+    public static JSONObject createUserTag(String userTags, MpAccount mpAccount) throws WxErrorException {
+        String accessToken = getAccessToken(mpAccount);
+        String url = WxApi.getCreateUserTag(accessToken);
+        return WxApi.httpsRequest(url, HttpMethod.POST.name(), userTags);
+    }
+
+    //获取标签下粉丝列表
+    public static JSONObject getUserListByTag(String tagId, MpAccount mpAccount) throws WxErrorException {
+        String accessToken = getAccessToken(mpAccount);
+        String url = WxApi.getUserListByTag(accessToken);
+        return WxApi.httpsRequest(url, HttpMethod.POST.name(), tagId);
+    }
+
+    //删除用户标签
+    public static JSONObject deleteUserTag(String tagId, MpAccount mpAccount) throws WxErrorException {
+        String accessToken = getAccessToken(mpAccount);
+        String url = WxApi.getDeleteUserTag(accessToken);
+        return WxApi.httpsRequest(url, HttpMethod.POST.name(), tagId);
+    }
+
     // 发布菜单
     public static JSONObject publishMenus(String menus, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         String accessToken = getAccessToken(mpAccount);
         String url = WxApi.getMenuCreateUrl(accessToken);
-        JSONObject rstObj = WxApi.httpsRequest(url, HttpMethod.POST, menus);
+        JSONObject rstObj = WxApi.httpsRequest(url, HttpMethod.POST.name(), menus);
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     // 创建个性化菜单
     public static JSONObject publishAddconditionalMenus(String menus, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         String accessToken = getAccessToken(mpAccount);
         String url = WxApi.getMenuAddconditionalUrl(accessToken);
-        JSONObject rstObj = WxApi.httpsRequest(url, HttpMethod.POST, menus);
+        JSONObject rstObj = WxApi.httpsRequest(url, HttpMethod.POST.name(), menus);
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     // 删除菜单
     public static JSONObject deleteMenu(MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         String accessToken = getAccessToken(mpAccount);
         String url = WxApi.getMenuDeleteUrl(accessToken);
-        JSONObject rstObj =  WxApi.httpsRequest(url, HttpMethod.POST, null);
+        JSONObject rstObj = WxApi.httpsRequest(url, HttpMethod.POST.name(), null);
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     // 根据openId获取粉丝信息
     public static AccountFans syncAccountFans(String openId, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         String accessToken = getAccessToken(mpAccount);
         log.info("获取用户信息接口accessToken：" + accessToken);
         String url = WxApi.getFansInfoUrl(accessToken, openId);
@@ -196,12 +180,24 @@ public class WxApiClient {
                 throw new WxErrorException(WxError.fromJson(jsonObj));
             } else {
                 AccountFans fans = new AccountFans();
-                fans.setOpenId(jsonObj.getString("openid"));// 用户的标识
-                fans.setSubscribeStatus(new Integer(jsonObj.getIntValue("subscribe")));// 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
+                /**
+                 * 用户的标识
+                 */
+                fans.setOpenId(jsonObj.getString("openid"));
+                /**
+                 * 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
+                 */
+                fans.setSubscribeStatus(jsonObj.getIntValue("subscribe"));
                 if (jsonObj.containsKey("subscribe_time")) {
-                    fans.setSubscribeTime(DateUtil.timestampToDate(jsonObj.getString("subscribe_time")));// 用户关注时间
+                    /**
+                     * 用户关注时间
+                     */
+                    fans.setSubscribeTime(DateUtil.timestampToDate(jsonObj.getString("subscribe_time")));
                 }
-                if (jsonObj.containsKey("nickname")) {// 昵称
+                /**
+                 * 昵称
+                 */
+                if (jsonObj.containsKey("nickname")) {
                     try {
                         String nickname = jsonObj.getString("nickname");
                         fans.setNickname(nickname.getBytes("UTF-8"));
@@ -209,22 +205,40 @@ public class WxApiClient {
                         e.printStackTrace();
                     }
                 }
-                if (jsonObj.containsKey("sex")) {// 用户的性别（1是男性，2是女性，0是未知）
+                /**
+                 * 用户的性别（1是男性，2是女性，0是未知）
+                 */
+                if (jsonObj.containsKey("sex")) {
                     fans.setGender(jsonObj.getIntValue("sex"));
                 }
-                if (jsonObj.containsKey("language")) {// 用户的语言，简体中文为zh_CN
+                /**
+                 * 用户的语言，简体中文为zh_CN
+                 */
+                if (jsonObj.containsKey("language")) {
                     fans.setLanguage(jsonObj.getString("language"));
                 }
-                if (jsonObj.containsKey("country")) {// 用户所在国家
+                /**
+                 * 用户所在国家
+                 */
+                if (jsonObj.containsKey("country")) {
                     fans.setCountry(jsonObj.getString("country"));
                 }
-                if (jsonObj.containsKey("province")) {// 用户所在省份
+                /**
+                 * 用户所在省份
+                 */
+                if (jsonObj.containsKey("province")) {
                     fans.setProvince(jsonObj.getString("province"));
                 }
-                if (jsonObj.containsKey("city")) {// 用户所在城市
+                /**
+                 * 用户所在城市
+                 */
+                if (jsonObj.containsKey("city")) {
                     fans.setCity(jsonObj.getString("city"));
                 }
-                if (jsonObj.containsKey("headimgurl")) {// 用户头像
+                /**
+                 * 用户头像
+                 */
+                if (jsonObj.containsKey("headimgurl")) {
                     fans.setHeadimgurl(jsonObj.getString("headimgurl"));
                 }
                 if (jsonObj.containsKey("remark")) {
@@ -237,16 +251,17 @@ public class WxApiClient {
         }
         return null;
     }
-    
+
     /**
      * 获取素材
+     *
      * @param mediaType 素材类型
-     * @param offset 开始位置
-     * @param count 获取数量
+     * @param offset    开始位置
+     * @param count     获取数量
      * @return
      */
     public static Material syncBatchMaterial(MediaType mediaType, Integer offset, Integer count, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         String accessToken = getAccessToken(mpAccount);
         String url = WxApi.getBatchMaterialUrl(accessToken);
         JSONObject bodyObj = new JSONObject();
@@ -255,8 +270,11 @@ public class WxApiClient {
         bodyObj.put("count", count);
         String body = bodyObj.toString();
         try {
-            JSONObject jsonObj = WxApi.httpsRequest(url, "POST", body);
-            if (jsonObj.containsKey("errcode")) {// 获取素材失败
+            JSONObject jsonObj = WxApi.httpsRequest(url, HttpMethod.POST.name(), body);
+            /**
+             * 获取素材失败
+             */
+            if (jsonObj.containsKey("errcode")) {
                 throw new WxErrorException(WxError.fromJson(jsonObj));
             } else {
                 Material material = new Material();
@@ -264,13 +282,16 @@ public class WxApiClient {
                 material.setItemCount(jsonObj.getIntValue("item_count"));
                 JSONArray arr = jsonObj.getJSONArray("item");
                 if (arr != null && arr.size() > 0) {
-                    List<MaterialItem> itemList = new ArrayList<MaterialItem>();
+                    List<MaterialItem> itemList = new ArrayList<>(arr.size());
                     for (int i = 0; i < arr.size(); i++) {
                         JSONObject item = arr.getJSONObject(i);
                         MaterialItem materialItem = new MaterialItem();
                         materialItem.setMediaId(item.getString("media_id"));
                         materialItem.setUpdateTime(item.getLong("update_time") * 1000L);
-                        if (item.containsKey("content")) {// mediaType=news （图文消息）
+                        /**
+                         * mediaType=news （图文消息）
+                         */
+                        if (item.containsKey("content")) {
                             JSONArray articles = item.getJSONObject("content").getJSONArray("news_item");
                             List<MaterialArticle> newsItems = new ArrayList<MaterialArticle>();
                             for (int j = 0; j < articles.size(); j++) {
@@ -297,19 +318,21 @@ public class WxApiClient {
                 return material;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return null;
     }
-    
+
     // 上传图文消息
     public static JSONObject uploadNews(List<MsgNews> msgNewsList, MpAccount mpAccount)
-        throws Exception {
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
         JSONArray jsonArr = new JSONArray();
         for (MsgNews news : msgNewsList) {
             JSONObject jsonObj = new JSONObject();
-            // 上传图片素材
+            /**
+             * 上传图片素材
+             */
             String mediaId = WxApi.uploadMedia(accessToken, MediaType.Image.toString(), news.getPicpath());
             jsonObj.put("thumb_media_id", mediaId);
             if (news.getAuthor() != null) {
@@ -342,23 +365,23 @@ public class WxApiClient {
         }
         JSONObject postObj = new JSONObject();
         postObj.put("articles", jsonArr);
-        JSONObject rstObj = WxApi.httpsRequest(WxApi.getUploadNewsUrl(accessToken), HttpMethod.POST, postObj.toString());
+        JSONObject rstObj = WxApi.httpsRequest(WxApi.getUploadNewsUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     /**
      * 根据openid群发接口
-     * 
+     *
      * @param mediaId：素材的id；通过素材管理,或者上传素材获取
      * @param msgType
      * @param mpAccount
      * @return
      */
     public static JSONObject massSendByOpenIds(List<String> openids, String mediaId, MsgType msgType, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         if (openids != null && openids.size() > 0) {
             JSONObject postObj = new JSONObject();
             JSONObject media = new JSONObject();
@@ -367,7 +390,7 @@ public class WxApiClient {
             postObj.put(msgType.toString(), media);
             postObj.put("msgtype", msgType.toString());
             String accessToken = getAccessToken(mpAccount);
-            JSONObject rstObj = WxApi.httpsRequest(WxApi.getMassSendUrl(accessToken), HttpMethod.POST, postObj.toString());
+            JSONObject rstObj = WxApi.httpsRequest(WxApi.getMassSendUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
             if (WxUtil.isWxError(rstObj)) {
                 throw new WxErrorException(WxError.fromJson(rstObj));
             }
@@ -375,22 +398,25 @@ public class WxApiClient {
         }
         return null;
     }
-    
+
     /**
      * 根据openid群发文本消息
-     * 
+     *
      * @param openids
      * @param content
      * @param mpAccount
      * @return
      */
     public static JSONObject massSendTextByOpenIds(List<String> openids, String content, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         if (openids != null && openids.size() > 0) {
-            if (openids.size() == 1) {// 根据openId群发，size至少为2
+            /**
+             * 根据openId群发，size至少为2
+             */
+            if (openids.size() == 1) {
                 openids.add("1");
             }
-            String[] arr = (String[])openids.toArray(new String[openids.size()]);
+            String[] arr = openids.toArray(new String[0]);
             JSONObject postObj = new JSONObject();
             JSONObject text = new JSONObject();
             postObj.put("touser", arr);
@@ -398,7 +424,7 @@ public class WxApiClient {
             postObj.put("text", text);
             postObj.put("msgtype", MsgType.Text.toString());
             String accessToken = getAccessToken(mpAccount);
-            JSONObject rstObj = WxApi.httpsRequest(WxApi.getMassSendUrl(accessToken), HttpMethod.POST, postObj.toString());
+            JSONObject rstObj = WxApi.httpsRequest(WxApi.getMassSendUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
             if (WxUtil.isWxError(rstObj)) {
                 throw new WxErrorException(WxError.fromJson(rstObj));
             }
@@ -406,20 +432,20 @@ public class WxApiClient {
         }
         return null;
     }
-    
+
     /**
      * 发送客服消息
-     * 
+     *
      * @param openid
      * @param content 消息内容
      * @return
      */
     public static JSONObject sendCustomTextMessage(String openid, String content, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         if (!StringUtils.isBlank(openid) && !StringUtils.isBlank(content)) {
             String accessToken = getAccessToken(mpAccount);
             content = WxMessageBuilder.prepareCustomText(openid, content);
-            JSONObject rstObj = WxApi.httpsRequest(WxApi.getSendCustomMessageUrl(accessToken), HttpMethod.POST, content);
+            JSONObject rstObj = WxApi.httpsRequest(WxApi.getSendCustomMessageUrl(accessToken), HttpMethod.POST.name(), content);
             if (WxUtil.isWxError(rstObj)) {
                 throw new WxErrorException(WxError.fromJson(rstObj));
             }
@@ -428,40 +454,40 @@ public class WxApiClient {
         return null;
     }
 
-	/**
-	 * 发送客服消息
-	 *
-	 * @param openid
-	 * @param mpAccount 消息内容
-	 * @return
-	 */
-	public static JSONObject sendCustomNews(String openid, MsgNews msgNews, MpAccount mpAccount)
-			throws WxErrorException {
-		String content = "";
-		if (!StringUtils.isBlank(openid)) {
-			String accessToken = getAccessToken(mpAccount);
-			content = WxMessageBuilder.prepareCustomNews(openid, msgNews);
-            JSONObject rstObj = WxApi.httpsRequest(WxApi.getSendCustomMessageUrl(accessToken), HttpMethod.POST, content);
+    /**
+     * 发送客服消息
+     *
+     * @param openid
+     * @param mpAccount 消息内容
+     * @return
+     */
+    public static JSONObject sendCustomNews(String openid, MsgNews msgNews, MpAccount mpAccount)
+            throws WxErrorException {
+        String content = "";
+        if (!StringUtils.isBlank(openid)) {
+            String accessToken = getAccessToken(mpAccount);
+            content = WxMessageBuilder.prepareCustomNews(openid, msgNews);
+            JSONObject rstObj = WxApi.httpsRequest(WxApi.getSendCustomMessageUrl(accessToken), HttpMethod.POST.name(), content);
             if (WxUtil.isWxError(rstObj)) {
                 throw new WxErrorException(WxError.fromJson(rstObj));
             }
             return rstObj;
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
     /**
      * 发送模板消息
-     * 
+     *
      * @param tplMsg
      * @param mpAccount 消息内容
      * @return
      */
     public static JSONObject sendTemplateMessage(TemplateMessage tplMsg, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         if (tplMsg != null) {
             String accessToken = getAccessToken(mpAccount);
-            JSONObject jsonObject = WxApi.httpsRequest(WxApi.getSendTemplateMessageUrl(accessToken), HttpMethod.POST, tplMsg.toString());
+            JSONObject jsonObject = WxApi.httpsRequest(WxApi.getSendTemplateMessageUrl(accessToken), HttpMethod.POST.name(), tplMsg.toString());
             if (WxUtil.isWxError(jsonObject)) {
                 throw new WxErrorException(WxError.fromJson(jsonObject));
             }
@@ -469,52 +495,52 @@ public class WxApiClient {
         }
         return null;
     }
-    
+
     /**
      * 创建临时二维码
-     * 
+     *
      * @param expireSecodes 该二维码有效时间，以秒为单位。 最大不超过2592000（即30天），此字段如果不填，则默认有效期为30秒。
-     * @param scene 临时二维码时为32位非0整型，永久二维码时最大值为100000（目前参数只支持1--100000)
+     * @param scene         临时二维码时为32位非0整型，永久二维码时最大值为100000（目前参数只支持1--100000)
      * @return
      */
     public static byte[] createQRCode(Integer expireSecodes, Integer scene, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         if (scene != null) {
             String accessToken = getAccessToken(mpAccount);
             String postBody = WxApi.getQrcodeJson(expireSecodes, scene);
-            JSONObject jsObj = WxApi.httpsRequest(WxApi.getCreateQrcodeUrl(accessToken), HttpMethod.POST, postBody);
+            JSONObject jsObj = WxApi.httpsRequest(WxApi.getCreateQrcodeUrl(accessToken), HttpMethod.POST.name(), postBody);
             if (jsObj != null) {
                 String ticket = jsObj.getString("ticket");
                 if (!StringUtils.isBlank(ticket)) {
-                    return WxApi.httpsRequestByte(WxApi.getShowQrcodeUrl(ticket), HttpMethod.GET);
+                    return WxApi.httpsRequestByte(WxApi.getShowQrcodeUrl(ticket), HttpMethod.GET.name());
                 }
                 return null;
             }
         }
         return null;
     }
-    
+
     // 创建永久字符串二维码
     public static byte[] createQRCodeLimit(String qrcodeStr, MpAccount mpAccount)
-        throws WxErrorException {
+            throws WxErrorException {
         if (!StringUtils.isBlank(qrcodeStr)) {
             String accessToken = getAccessToken(mpAccount);
             String postBody = WxApi.getQrcodeLimitJson(qrcodeStr);
-            JSONObject jsObj = WxApi.httpsRequest(WxApi.getCreateQrcodeUrl(accessToken), HttpMethod.POST, postBody);
+            JSONObject jsObj = WxApi.httpsRequest(WxApi.getCreateQrcodeUrl(accessToken), HttpMethod.POST.name(), postBody);
             if (jsObj != null) {
                 String ticket = jsObj.getString("ticket");
                 if (!StringUtils.isBlank(ticket)) {
-                    return WxApi.httpsRequestByte(WxApi.getShowQrcodeUrl(ticket), HttpMethod.GET);
+                    return WxApi.httpsRequestByte(WxApi.getShowQrcodeUrl(ticket), HttpMethod.GET.name());
                 }
                 return null;
             }
         }
         return null;
     }
-    
+
     // 上传永久图片
     public static JSONObject uploadMaterialImg(String filePath, MpAccount mpAccount)
-        throws Exception {
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
         // 上传永久图片素材
         JSONObject rstObj = WxApi.addMaterial(WxApi.getMaterialImgUrl(accessToken), filePath);
@@ -523,10 +549,10 @@ public class WxApiClient {
         }
         return rstObj;
     }
-    
+
     // 新增微信永久素材
     public static JSONObject addMaterial(String filePath, String materialType, MpAccount mpAccount)
-        throws Exception {
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
         // 上传永久图片素材
         JSONObject rstObj = WxApi.addMaterial(WxApi.getMaterialUrl(accessToken, materialType), filePath);
@@ -535,35 +561,35 @@ public class WxApiClient {
         }
         return rstObj;
     }
-    
+
     /**
      * 根据media_id获取永久图文素材
      *
-     * @param media_id
+     * @param mediaId
      * @param mpAccount
      * @return
      */
-    public static JSONObject getMaterial(String media_id, MpAccount mpAccount)
-        throws WxErrorException {
+    public static JSONObject getMaterial(String mediaId, MpAccount mpAccount)
+            throws WxErrorException {
         JSONObject postObj = new JSONObject();
-        postObj.put("media_id", media_id);
+        postObj.put("media_id", mediaId);
         String accessToken = getAccessToken(mpAccount);
-        return WxApi.httpsRequest(WxApi.getMaterial(accessToken), HttpMethod.POST, postObj.toString());
+        return WxApi.httpsRequest(WxApi.getMaterial(accessToken), HttpMethod.POST.name(), postObj.toString());
     }
-    
+
     /**
      * 根据media_id删除永久图文素材
-     * 
-     * @param media_id
+     *
+     * @param mediaId
      * @param mpAccount
      * @return
      */
-    public static JSONObject deleteMaterial(String media_id, MpAccount mpAccount)
-        throws WxErrorException {
+    public static JSONObject deleteMaterial(String mediaId, MpAccount mpAccount)
+            throws WxErrorException {
         JSONObject postObj = new JSONObject();
-        postObj.put("media_id", media_id);
+        postObj.put("media_id", mediaId);
         String accessToken = getAccessToken(mpAccount);
-        JSONObject rstObj = WxApi.httpsRequest(WxApi.getDelMaterialURL(accessToken), HttpMethod.POST, postObj.toString());
+        JSONObject rstObj = WxApi.httpsRequest(WxApi.getDelMaterialURL(accessToken), HttpMethod.POST.name(), postObj.toString());
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
@@ -573,7 +599,7 @@ public class WxApiClient {
 
     // 新增永久图文素材
     public static JSONObject addNewsMaterial(List<MsgNews> msgNewsList, String mediaId, MpAccount mpAccount)
-        throws Exception {
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
         JSONArray jsonArr = new JSONArray();
         for (MsgNews news : msgNewsList) {
@@ -612,20 +638,20 @@ public class WxApiClient {
         }
         JSONObject postObj = new JSONObject();
         postObj.put("articles", jsonArr);
-        JSONObject rstObj = WxApi.httpsRequest(WxApi.getNewsMaterialUrl(accessToken), HttpMethod.POST, postObj.toString());
+        JSONObject rstObj = WxApi.httpsRequest(WxApi.getNewsMaterialUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     // 修改永久图文素材
     public static JSONObject updateNewsMaterial(List<MsgNews> msgNewsList, int index, String mediaId, MpAccount mpAccount)
-        throws Exception {
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
         MsgNews news = msgNewsList.get(0);
         JSONObject jsonObj = new JSONObject();
-        
+
         // 上传图片素材
         jsonObj.put("thumb_media_id", news.getThumbMediaId());
         if (news.getAuthor() != null) {
@@ -657,39 +683,39 @@ public class WxApiClient {
         jsonObj.put("only_fans_can_comment", news.getFanscancomment());
 
         jsonObj.put("content", news.getDescription());
-        
+
         JSONObject postObj = new JSONObject();
         postObj.put("media_id", mediaId);
         postObj.put("index", index);
         postObj.put("articles", jsonObj);
-        JSONObject rstObj = WxApi.httpsRequest(WxApi.getUpdateNewsMaterialUrl(accessToken), HttpMethod.POST, postObj.toString());
+        JSONObject rstObj = WxApi.httpsRequest(WxApi.getUpdateNewsMaterialUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     public static JSONObject updateNewsMaterial2(JSONObject jsonObj, int index, String mediaId, MpAccount mpAccount)
-        throws Exception {
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
         JSONObject postObj = new JSONObject();
         postObj.put("media_id", mediaId);
         postObj.put("index", index);
         postObj.put("articles", jsonObj);
-        JSONObject rstObj = WxApi.httpsRequest(WxApi.getUpdateNewsMaterialUrl(accessToken), HttpMethod.POST, postObj.toString());
+        JSONObject rstObj = WxApi.httpsRequest(WxApi.getUpdateNewsMaterialUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
         return rstObj;
     }
-    
+
     // 新增多图文永久素材
-    public static JSONObject addMoreNewsMaterial2(JSONArray arryarticles, MpAccount mpAccount)
-        throws Exception {
+    public static JSONObject addMoreNewsMaterial2(JSONArray arrayArticles, MpAccount mpAccount)
+            throws Exception {
         String accessToken = getAccessToken(mpAccount);
-            JSONObject postObj = new JSONObject();
-            postObj.put("articles", arryarticles);
-        JSONObject rstObj = WxApi.httpsRequest(WxApi.getNewsMaterialUrl(accessToken), HttpMethod.POST, postObj.toString());
+        JSONObject postObj = new JSONObject();
+        postObj.put("articles", arrayArticles);
+        JSONObject rstObj = WxApi.httpsRequest(WxApi.getNewsMaterialUrl(accessToken), HttpMethod.POST.name(), postObj.toString());
         if (WxUtil.isWxError(rstObj)) {
             throw new WxErrorException(WxError.fromJson(rstObj));
         }
