@@ -1,22 +1,25 @@
 package com.wxmp.wxapi.process;
 
+import lombok.Getter;
+
 /**
  * 消息类型
  */
+@Getter
 public enum OAuthScope {
-
-    Base("snsapi_base"),//用户openid
-    Userinfo("userinfo");//用户信息
+    /**
+     * 用户openid
+     */
+    Base("snsapi_base"),
+    /**
+     * 用户信息
+     */
+    Userinfo("userinfo");
 
     private String name;
 
-    private OAuthScope(String name) {
+    OAuthScope(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
     }
 
 }
